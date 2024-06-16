@@ -24,7 +24,7 @@ form.addEventListener('submit', function (evt) {
 });
 
 function infor() {
-    if ( nom.value != 'haivher' || password.value != 'haivher123' && nom.value != ''|| password.value != '') {
+    if ( nom.value != 'haivher' && password.value != 'haivher123' ) {
         alert("Datos Incorrectos, Intente Nuevamente");
         return false,
             window.location = 'index.html';
