@@ -8,7 +8,7 @@ form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     var mensajesError = [];
 
-    if (nom.value === null || nom.value === 'haivher' && password.value === null || password.value === '123') {
+    if (nom.value === null || nom.value === 'haivher' && password.value === null || password.value === 'haivher123') {
         window.location = 'index2.html';
     }
     if (nom.value === null || nom.value === '') {
@@ -24,7 +24,7 @@ form.addEventListener('submit', function (evt) {
 });
 
 function infor() {
-    if ( nom.value != 'haivher' && password.value != '123' && nom.value != ''&& password.value != '') {
+    if ( nom.value != 'haivher' || password.value != 'haivher123' && nom.value != ''|| password.value != '') {
         alert("Datos Incorrectos, Intente Nuevamente");
         return false,
             window.location = 'index.html';
