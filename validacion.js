@@ -24,9 +24,19 @@ form.addEventListener('submit', function (evt) {
 });
 
 function infor() {
-    if ( nom.value != 'haivher' && password.value != 'haivher123' ) {
-        alert("Datos Incorrectos, Intente Nuevamente");
-        return false,
-            window.location = 'index.html';
+    if(nom.value === null || nom.value === 'haivher' && password.value === null || password.value === 'haivher123'){
+        window.location = 'index2.html';
+    }
+    else{
+        if (nom.value !== 'haivher' && password.value === null || password.value !== '') {
+            alert("Datos Incorrectos, Intente Nuevamente");
+            return false,
+                window.location = 'index.html';
+        }
+        if (password.value !== 'haivher123' && password.value === null || password.value !== '') {
+            alert("Datos Incorrectos, Intente Nuevamente");
+            return false,
+                window.location = 'index.html';
+        } 
     }
 }
