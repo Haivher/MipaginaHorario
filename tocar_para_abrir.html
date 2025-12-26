@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Álbum Secreto - Mia & Haivher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla de despedida con efectos -->
+    <div id="goodbye-screen">
+        <div class="goodbye-message">TE AMO VALEN!!!</div>
+        <div class="goodbye-subtitle">Eres el amor de mi vida ❤️</div>
+    </div>
+
+    <!-- Pantalla con juego de llave y candado -->
+    <div id="lock-screen">
+        <div class="lock-screen-content">
+            <h1 class="lock-title">Nuestro Álbum Secreto</h1>
+            <p class="lock-subtitle">Mia & Haivher - Un viaje lleno de amor y momentos inolvidables</p>
+            
+            <div class="lock-game-area">
+                <div class="lock-instruction">¡Arrastra la llave dorada hasta el candado para desbloquear nuestro álbum!</div>
+                
+                <div class="key-start-area">
+                    <div class="key-start-text">Toma la llave desde aquí</div>
+                </div>
+                
+                <div class="lock-container">
+                    <div class="lock locked"><i class="fas fa-lock"></i></div>
+                </div>
+                
+                <div class="key" id="draggable-key" draggable="true"><i class="fas fa-key"></i></div>
+                <div class="key-trail" id="key-trail"></div>
+                
+                <!-- Flores decorativas -->
+                <div class="flower flower-1"><i class="fas fa-heart"></i></div>
+                <div class="flower flower-2"><i class="fas fa-star"></i></div>
+                <div class="flower flower-3"><i class="fas fa-heart"></i></div>
+                <div class="flower flower-4"><i class="fas fa-star"></i></div>
+            </div>
+            
+            <div class="password-form" id="password-form">
+                <h3>Nuestra Contraseña Secreta</h3>
+                <div class="password-input">
+                    <input type="password" id="password-input" placeholder="Escribe nuestra palabra especial">
+                </div>
+                <button id="password-button" class="password-button">
+                    <i class="fas fa-unlock-alt"></i> Abrir Álbum de Amor
+                </button>
+                <p class="error-message" id="error-message">Contraseña incorrecta. Intenta de nuevo.</p>
+                <p class="hint">Pista: Nuestro equipo especial (todo en minúsculas)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Álbum de fotos -->
+    <div id="album-container">
+        <div class="container">
+            <div class="album-wrapper">
+                <!-- Candado para salir -->
+                <div class="exit-lock-container" id="exit-lock">
+                    <div class="exit-lock"><i class="fas fa-lock"></i></div>
+                    <div class="exit-tooltip">Cerrar álbum</div>
+                </div>
+                
+                <div class="corner-decoration corner-tl"></div>
+                <div class="corner-decoration corner-tr"></div>
+                <div class="corner-decoration corner-bl"></div>
+                <div class="corner-decoration corner-br"></div>
+                
+                <!-- Flores decorativas en el álbum -->
+                <div class="flower flower-1"><i class="fas fa-heart"></i></div>
+                <div class="flower flower-2"><i class="fas fa-star"></i></div>
+                <div class="flower flower-3"><i class="fas fa-heart"></i></div>
+                <div class="flower flower-4"><i class="fas fa-star"></i></div>
+                
+                <div class="album-header">
+                    <h1 class="album-title">Nuestro Álbum de Amor</h1>
+                    <div class="couple-names">Mia & Haivher</div>
+                    <p class="album-quote">"El amor verdadero no es algo que se encuentra, es algo que se construye día a día"</p>
+                </div>
+
+                <div class="album-pages" id="album-pages">
+                    <!-- Página 1 - Portada -->
+                    <div class="page active" id="page-1">
+                        <div class="page-content">
+                            <div class="page-date">Album Dedicado A Mi Querida MIA DIAZ</div>
+                            <div class="page-message">
+                                Este álbum guarda los momentos más especiales que hemos compartido juntos. 
+                                Cada foto, cada recuerdo, es un tesoro que atesoramos en nuestro corazón.
+                            </div>
+                            <img src="IMG_20251011_175539_490.jpg" alt="Nuestro inicio" class="page-image">
+                            <div class="page-poem">
+                                Cada día a tu lado es una página nueva en nuestro libro.<br>
+                                No hay lugar donde me sienta más en casa que en tus brazos.<br>
+                                Creo que estás hecha exactamente para mí.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 2 -->
+                    <div class="page" id="page-2">
+                        <div class="page-content">
+                            <h2 class="page-title">Mis Lugares Favoritos Juntos: Un Lugar Donde se Adora a Dios y a Tu Lado</h2>
+                            <img src="IMG_20251128_221021_514.jpg" alt="Nuestro primer viaje" class="page-image">
+                            <div class="page-poem">
+                                Juré amarte así, con todo lo que soy.<br>
+                                Tú me dejaste volverme la mejor versión de mí mismo.<br>
+                                ¡Eres mi hogar!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 3 -->
+                    <div class="page" id="page-3">
+                        <div class="page-content">
+                            <h2 class="page-title">Celebrando Tu Cumpleaños</h2>
+                            <div class="page-date">Diciembre 5 - Tu día especial</div>
+                            <img src="WhatsApp Image 2025-12-25 at 11.03.37 PM.jpeg" alt="Celebrando juntos" class="page-image">
+                            <div class="page-message">
+                                Ver tu sonrisa mientras compartias conmigo iluminó no solo el lugar, 
+                                sino también mi corazón. Prometo hacerte sonreír así todos los días de tu vida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 4 -->
+                    <div class="page" id="page-4">
+                        <div class="page-content">
+                            <h2 class="page-title">Mia Diaz mi Lugar Favorito</h2>
+                            <img src="IMG_20250914_165030_860.jpg" alt="Atardecer juntos" class="page-image">
+                            <div class="page-poem">
+                                ¿A dónde irás que yo no iría contigo?<br>
+                                Donde quiera que estés, allí quiero estar yo.<br>
+                                Porque contigo hasta el fin del mundo es mi destino.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 5 -->
+                    <div class="page" id="page-5">
+                        <div class="page-content">
+                            <h2 class="page-title">Risas y Complicidad</h2>
+                            <div class="page-date">El Amor Solo es una Palabra Para lo que Sentimos</div>
+                            <img src="IMG_20251205_180029_779.jpg" alt="Risas juntos" class="page-image">
+                            <div class="page-message">
+                                Nuestras risas son la banda sonora de nuestra historia. Esos momentos en que nos reímos sin razón, 
+                                esas miradas cómplices que dicen más que mil palabras.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 6 -->
+                    <div class="page" id="page-6">
+                        <div class="page-content">
+                            <h2 class="page-title">Nuestra Primera Navidad</h2>
+                            <div class="page-date">Diciembre 2025 - Magia navideña</div>
+                            <img src="IMG_20251130_132921_872.jpg" alt="Navidad juntos" class="page-image">
+                            <div class="page-message">
+                                Crear nuestras propias tradiciones navideñas fue un regalo en sí mismo. 
+                                El mejor presente es y sera tenerte a mi lado, compartiendo la magia de la temporada.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 7 -->
+                    <div class="page" id="page-7">
+                        <div class="page-content">
+                            <h2 class="page-title">Tu Mirada que me Enamora y Tus Labios Me vuelven Loco</h2>
+                            <div class="page-date">El Reflejo de nuestro amor</div>
+                            <img src="IMG_20251205_175909_967.jpg" alt="Mirada especial" class="page-image">
+                            <div class="page-message">
+                                Tus ojos cuentan historias que solo yo puedo entender. En ellos veo el pasado que compartimos, 
+                                el presente que disfrutamos y el futuro que anhelamos construir juntos.
+                            </div>
+                            <div class="page-poem">
+                                Tu mirada es mi refugio,<br>
+                                Tu sonrisa mi motivación,<br>
+                                Tu amor mi razón de ser.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Página 8 - Mensaje especial -->
+                    <div class="page" id="page-8">
+                        <div class="page-content">
+                            <div class="text-page">
+                                <h2>Para Mi Amor, Mia</h2>
+                                <p>Cada día a tu lado es una página nueva en nuestro diario de amor. No hay lugar donde me sienta más en casa que en tus brazos, ni momento más valioso que aquellos que paso mirándote sonreír.</p>
+                                <p>Creí que conocía el amor antes de conocerte, pero estabas destinado a mostrarme lo que realmente significa amar. Juré amarte así, con toda mi alma, porque tú me dejaste volverme la mejor versión de mí mismo.</p>
+                                <p>¡Eres mi hogar! No importa a dónde vayamos, mientras estemos juntos, estaremos en el lugar correcto. ¿A dónde irás que yo no iría contigo? Mi destino está entrelazado con el tuyo.</p>
+                                <p>Este álbum es solo el comienzo de nuestra historia. Hay muchas páginas más por escribir, muchos momentos más por vivir, y todo mi amor para compartir contigo en cada uno de ellos.</p>
+                                <p style="text-align: center; font-size: 2.2rem; margin-top: 40px; color: #7b5dd6;">
+                                    Con todo mi amor, para siempre<br>
+                                    <strong>Haivher</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles y navegación -->
+                <div class="album-controls">
+                    <button id="prev-btn" class="nav-button" disabled>
+                        <i class="fas fa-arrow-left"></i> Página Anterior
+                    </button>
+                    
+                    <div class="page-indicator">
+                        Página <span id="current-page">1</span> de <span id="total-pages">8</span>
+                    </div>
+                    
+                    <button id="next-btn" class="nav-button">
+                        Siguiente Página <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Puntos de navegación -->
+                <div class="page-dots" id="page-dots">
+                    <!-- Los puntos se generarán con JavaScript -->
+                </div>
+
+                <div class="album-footer">
+                    <p>Nuestro Amor Es Como El Mar Nunca Se Seca <span class="heart-icon"><i class="fas fa-heart"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

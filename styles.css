@@ -1,0 +1,794 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Dancing Script', 'Segoe UI', cursive;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f0ff 0%, #e6e1ff 100%);
+    color: #4a3c6d;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Pantalla de acceso con llave y candado */
+#lock-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e6d7ff 0%, #d4c2ff 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    transition: all 0.8s ease;
+}
+
+#lock-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+}
+
+.lock-screen-content {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.lock-title {
+    font-size: 4rem;
+    color: #7b5dd6;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(123, 93, 214, 0.2);
+}
+
+.lock-subtitle {
+    font-size: 1.8rem;
+    color: #8a75c9;
+    margin-bottom: 40px;
+    max-width: 700px;
+}
+
+.lock-game-area {
+    position: relative;
+    width: 500px;
+    height: 350px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(123, 93, 214, 0.2);
+    margin: 30px auto;
+    border: 3px dashed #b19cff;
+    overflow: hidden;
+}
+
+.lock-instruction {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #7b5dd6;
+    z-index: 5;
+}
+
+.lock-container {
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.lock {
+    font-size: 7rem;
+    color: #7b5dd6;
+    filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2));
+    transition: all 0.5s ease;
+}
+
+.lock.locked {
+    color: #a394d6;
+    animation: pulse 2s infinite;
+}
+
+.lock.unlocked {
+    color: #5dd67b;
+    transform: scale(1.2);
+}
+
+.key-start-area {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    background: rgba(181, 166, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px dashed #7b5dd6;
+    z-index: 2;
+}
+
+.key-start-text {
+    color: #7b5dd6;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.key {
+    position: absolute;
+    font-size: 5rem;
+    color: #ffd166;
+    cursor: grab;
+    z-index: 10;
+    filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease;
+    left: 20%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.key:active {
+    cursor: grabbing;
+}
+
+.key-trail {
+    position: absolute;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to right, #ffd166, #ff9e6d);
+    transform-origin: center left;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.password-form {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(123, 93, 214, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    margin-top: 30px;
+    display: none;
+    border: 2px solid #b19cff;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.password-form h3 {
+    color: #7b5dd6;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.password-input {
+    margin-bottom: 20px;
+}
+
+.password-input input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #d4c2ff;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    text-align: center;
+    outline: none;
+    font-family: 'Dancing Script', cursive;
+    background-color: #f9f7ff;
+    transition: all 0.3s;
+    color: #7b5dd6;
+}
+
+.password-input input:focus {
+    border-color: #7b5dd6;
+    box-shadow: 0 0 0 3px rgba(123, 93, 214, 0.2);
+}
+
+.password-button {
+    background: linear-gradient(to right, #7b5dd6, #9d8aff);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    width: 100%;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(123, 93, 214, 0.3);
+}
+
+.password-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(123, 93, 214, 0.4);
+    background: linear-gradient(to right, #6a4dc9, #8a75c9);
+}
+
+.error-message {
+    color: #ff6b8b;
+    margin-top: 15px;
+    font-weight: 500;
+    display: none;
+    font-size: 1.2rem;
+}
+
+.hint {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #8a75c9;
+    font-style: italic;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-15px); }
+}
+
+.key {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Estilos para el álbum */
+#album-container {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#album-container.visible {
+    display: block;
+    opacity: 1;
+}
+
+.album-wrapper {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 25px 60px rgba(123, 93, 214, 0.25);
+    overflow: hidden;
+    border: 5px solid #d4c2ff;
+    min-height: 800px;
+}
+
+/* Candado para salir */
+.exit-lock-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(123, 93, 214, 0.3);
+    border: 2px solid #d4c2ff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.exit-lock-container:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(123, 93, 214, 0.4);
+    background: #f9f7ff;
+}
+
+.exit-lock {
+    font-size: 2.5rem;
+    color: #7b5dd6;
+    transition: all 0.3s;
+}
+
+.exit-lock-container:hover .exit-lock {
+    color: #ff6b8b;
+    transform: rotate(15deg);
+}
+
+.exit-tooltip {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    color: #7b5dd6;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d4c2ff;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.exit-lock-container:hover .exit-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Pantalla de cierre con efectos */
+#goodbye-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#goodbye-screen.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.goodbye-message {
+    font-size: 6rem;
+    color: #ff6b8b;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 0 0 20px rgba(255, 107, 139, 0.8);
+    animation: textPulse 2s infinite;
+    font-weight: bold;
+}
+
+@keyframes textPulse {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 20px rgba(255, 107, 139, 0.8); }
+    50% { transform: scale(1.05); text-shadow: 0 0 30px rgba(255, 107, 139, 1); }
+}
+
+.goodbye-subtitle {
+    font-size: 2.5rem;
+    color: #9d8aff;
+    text-align: center;
+    margin-bottom: 60px;
+    text-shadow: 0 0 15px rgba(157, 138, 255, 0.8);
+}
+
+/* Fuegos artificiales y confeti */
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+}
+
+/* Contenido del álbum */
+.album-header {
+    text-align: center;
+    padding: 50px 20px 30px;
+    position: relative;
+    background: linear-gradient(135deg, #f5f0ff 0%, #e6d7ff 100%);
+    border-bottom: 3px solid #d4c2ff;
+}
+
+.album-title {
+    font-size: 4.5rem;
+    color: #7b5dd6;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.couple-names {
+    font-size: 2.8rem;
+    color: #9d8aff;
+    margin-bottom: 20px;
+}
+
+.album-quote {
+    font-size: 1.8rem;
+    color: #8a75c9;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Estilos para el carrusel de páginas */
+.album-pages {
+    position: relative;
+    padding: 40px 20px;
+    min-height: 650px;
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.8s ease;
+    padding: 20px;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.page-image {
+    width: 100%;
+    max-width: 650px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 30px rgba(123, 93, 214, 0.2);
+    border: 8px solid #f0ebff;
+    transition: transform 0.5s ease;
+}
+
+.page-image:hover {
+    transform: scale(1.02);
+}
+
+.page-title {
+    font-size: 3rem;
+    color: #7b5dd6;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.page-date {
+    font-size: 1.8rem;
+    color: #9d8aff;
+    margin-bottom: 25px;
+    font-style: italic;
+    background: rgba(181, 166, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+.page-message {
+    font-size: 1.8rem;
+    color: #5a4a8a;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    max-width: 750px;
+}
+
+.page-poem {
+    font-size: 1.7rem;
+    color: #5a4a8a;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 30px;
+    max-width: 700px;
+    padding: 25px;
+    background: linear-gradient(135deg, #f9f7ff 0%, #f0ebff 100%);
+    border-radius: 15px;
+    border-left: 5px solid #9d8aff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Controles del álbum */
+.album-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 40px;
+    background: linear-gradient(135deg, #f5f0ff 0%, #e6d7ff 100%);
+    border-top: 3px solid #d4c2ff;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-button {
+    background: linear-gradient(to right, #7b5dd6, #9d8aff);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 5px 15px rgba(123, 93, 214, 0.3);
+}
+
+.nav-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(123, 93, 214, 0.4);
+    background: linear-gradient(to right, #6a4dc9, #8a75c9);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-size: 1.8rem;
+    color: #7b5dd6;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #d4c2ff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background-color: #7b5dd6;
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(123, 93, 214, 0.5);
+}
+
+.dot:hover:not(.active) {
+    background-color: #9d8aff;
+    transform: scale(1.1);
+}
+
+/* Estilos para la página de texto especial */
+.text-page {
+    padding: 50px 40px;
+    background: linear-gradient(135deg, #f9f7ff 0%, #f0ebff 100%);
+    border-radius: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    border: 2px solid #e6d7ff;
+}
+
+.text-page h2 {
+    color: #7b5dd6;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 3rem;
+}
+
+.text-page p {
+    font-size: 1.9rem;
+    line-height: 1.9;
+    color: #5a4a8a;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.album-footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: #8a75c9;
+    font-size: 1.5rem;
+    font-style: italic;
+    background: linear-gradient(135deg, #f5f0ff 0%, #e6d7ff 100%);
+    border-top: 3px solid #d4c2ff;
+    position: relative;
+    z-index: 2;
+}
+
+.heart-icon {
+    color: #ff6b8b;
+    margin: 0 8px;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Decoraciones del álbum */
+.corner-decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.corner-tl {
+    top: 20px;
+    left: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20,20 Q0,20 0,40 L0,80 Q0,100 20,100 L80,100 Q100,100 100,80 L100,20 Q100,0 80,0 L40,0 Q20,0 20,20' fill='%237b5dd6' fill-opacity='0.1'/%3E%3C/svg%3E") no-repeat;
+}
+
+.corner-tr {
+    top: 20px;
+    right: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M80,20 Q100,20 100,40 L100,80 Q100,100 80,100 L20,100 Q0,100 0,80 L0,20 Q0,0 20,0 L60,0 Q80,0 80,20' fill='%237b5dd6' fill-opacity='0.1'/%3E%3C/svg%3E") no-repeat;
+}
+
+.corner-bl {
+    bottom: 20px;
+    left: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20,80 Q0,80 0,60 L0,20 Q0,0 20,0 L80,0 Q100,0 100,20 L100,60 Q100,80 80,80 L40,80 Q20,80 20,80' fill='%237b5dd6' fill-opacity='0.1'/%3E%3C/svg%3E") no-repeat;
+}
+
+.corner-br {
+    bottom: 20px;
+    right: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M80,80 Q100,80 100,60 L100,20 Q100,0 80,0 L20,0 Q0,0 0,20 L0,60 Q0,80 20,80 L60,80 Q80,80 80,80' fill='%237b5dd6' fill-opacity='0.1'/%3E%3C/svg%3E") no-repeat;
+}
+
+/* Flores decorativas */
+.flower {
+    position: absolute;
+    font-size: 2rem;
+    color: #9d8aff;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+.flower-1 { top: 15%; left: 5%; }
+.flower-2 { top: 10%; right: 8%; }
+.flower-3 { bottom: 20%; left: 7%; }
+.flower-4 { bottom: 15%; right: 5%; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .lock-game-area {
+        width: 90%;
+        height: 300px;
+    }
+    
+    .lock-title {
+        font-size: 3rem;
+    }
+    
+    .lock-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .album-title {
+        font-size: 3.5rem;
+    }
+    
+    .couple-names {
+        font-size: 2.2rem;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+    }
+    
+    .goodbye-message {
+        font-size: 4rem;
+    }
+    
+    .goodbye-subtitle {
+        font-size: 1.8rem;
+    }
+    
+    .page-message, .page-poem {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .lock-game-area {
+        height: 250px;
+    }
+    
+    .lock {
+        font-size: 5rem;
+    }
+    
+    .key {
+        font-size: 4rem;
+    }
+    
+    .lock-title {
+        font-size: 2.5rem;
+    }
+    
+    .album-title {
+        font-size: 2.8rem;
+    }
+    
+    .couple-names {
+        font-size: 1.8rem;
+    }
+    
+    .page-image {
+        height: 250px;
+    }
+    
+    .album-controls {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .page-dots {
+        margin: 15px 0;
+    }
+    
+    .goodbye-message {
+        font-size: 3rem;
+    }
+    
+    .goodbye-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .exit-lock-container {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .exit-lock {
+        font-size: 2rem;
+    }
+}
